@@ -246,8 +246,8 @@ class Login extends Controller
 
     /**
      * Verify user after activation mail link opened
-     * @param int $user_id user's id
-     * @param string $user_activation_verification_code sser's verification token
+     * @param int $userID user's id
+     * @param string $userActivationVerificationCode sser's verification token
      */
     public function verify($userID, $userActivationVerificationCode)
     {
@@ -276,8 +276,8 @@ class Login extends Controller
 
     /**
      * Verify the verification token of that user (to show the user the password editing view or not)
-     * @param string $user_name username
-     * @param string $verification_code password reset verification token
+     * @param string $username username
+     * @param string $verificationCode password reset verification token
      */
     public function verifyPasswordReset($username, $verificationCode)
     {
