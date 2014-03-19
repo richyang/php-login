@@ -25,8 +25,8 @@ class Note extends Controller
      */
     public function index()
     {
-        $note_model = $this->loadModel('Note');
-        $this->view->notes = $note_model->getAllNotes();
+        $noteModel = $this->loadModel('Note');
+        $this->view->notes = $noteModel->getAllNotes();
         $this->view->render('note/index');
     }
 
@@ -41,8 +41,8 @@ class Note extends Controller
         // stuff handles POST in the model. in this note-controller/model, the POST data is intentionally handled
         // in the controller, to show people how to do it "correctly". But I still think this is ugly.
         if (isset($_POST['note_text']) AND !empty($_POST['note_text'])) {
-            $note_model = $this->loadModel('Note');
-            $note_model->create($_POST['note_text']);
+            $noteModel = $this->loadModel('Note');
+            $noteModel->create($_POST['note_text']);
         }
         header('location: ' . URL . 'note');
     }
@@ -52,11 +52,11 @@ class Note extends Controller
      * Shows the current content of the note and an editing form.
      * @param $note_id int id of the note
      */
-    public function edit($note_id)
+    public function edit($noteID)
     {
         // get the note that you want to edit (to show the current content)
-        $note_model = $this->loadModel('Note');
-        $this->view->note = $note_model->getNote($note_id);
+        $noteModel = $this->loadModel('Note');
+        $this->view->note = $noteModel->getNote($noteID);
         $this->view->render('note/edit');
     }
 
@@ -65,12 +65,12 @@ class Note extends Controller
      * Edits a note (performs the editing after form submit).
      * @param int $note_id id of the note
      */
-    public function editSave($note_id)
+    public function editSave($noteID)
     {
         if (isset($_POST['note_text'])) {
             // perform the update: pass note_id from URL and note_text from POST
-            $note_model = $this->loadModel('Note');
-            $note_model->editSave($note_id, $_POST['note_text']);
+            $noteModel = $this->loadModel('Note');
+            $noteModel->editSave($noteID, $_POST['note_text']);
         }
         header('location: ' . URL . 'note');
     }
@@ -81,10 +81,10 @@ class Note extends Controller
      * totally okay.
      * @param int $note_id id of the note
      */
-    public function delete($note_id)
+    public function delete($noteID)
     {
-        $note_model = $this->loadModel('Note');
-        $note_model->delete($note_id);
+        $noteModel = $this->loadModel('Note');
+        $noteModel->delete($noteID);
         header('location: ' . URL . 'note');
     }
 }
