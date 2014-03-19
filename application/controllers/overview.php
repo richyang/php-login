@@ -28,7 +28,7 @@ class Overview extends Controller
     /**
      * This method controls what happens when you move to /overview/showuserprofile in your app.
      * Shows the (public) details of the selected user.
-     * @param $user_id int id the the user
+     * @param int $userID id the the user
      */
     public function showUserProfile($userID)
     {
