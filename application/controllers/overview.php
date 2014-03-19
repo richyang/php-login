@@ -9,7 +9,7 @@ class Overview extends Controller
     /**
      * Construct this object by extending the basic Controller class
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -18,10 +18,10 @@ class Overview extends Controller
      * This method controls what happens when you move to /overview/index in your app.
      * Shows a list of all users.
      */
-    function index()
+    public function index()
     {
-        $overview_model = $this->loadModel('Overview');
-        $this->view->users = $overview_model->getAllUsersProfiles();
+        $overviewModel = $this->loadModel('Overview');
+        $this->view->users = $overviewModel->getAllUsersProfiles();
         $this->view->render('overview/index');
     }
 
@@ -30,10 +30,10 @@ class Overview extends Controller
      * Shows the (public) details of the selected user.
      * @param $user_id int id the the user
      */
-    function showUserProfile($user_id)
+    public function showUserProfile($userID)
     {
-        $overview_model = $this->loadModel('Overview');
-        $this->view->user = $overview_model->getUserProfile($user_id);
+        $overviewModel = $this->loadModel('Overview');
+        $this->view->user = $overviewModel->getUserProfile($userID);
         $this->view->render('overview/showuserprofile');
     }
 }
