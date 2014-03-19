@@ -10,7 +10,7 @@
  */
 class Controller
 {
-    function __construct()
+    public function __construct()
     {
         Session::init();
 
