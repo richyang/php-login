@@ -50,7 +50,7 @@ class Note extends Controller
     /**
      * This method controls what happens when you move to /note/edit(/XX) in your app.
      * Shows the current content of the note and an editing form.
-     * @param $noteID int id of the note
+     * @param int $noteID id of the note
      */
     public function edit($noteID)
     {
