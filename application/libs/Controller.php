@@ -32,7 +32,7 @@ class Controller
 
     /**
      * loads the model with the given name.
-     * @param $name string name of the model
+     * @param string $name name of the model
      */
     public function loadModel($name)
     {
