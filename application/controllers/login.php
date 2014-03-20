@@ -10,7 +10,7 @@ class Login extends Controller
     /**
      * Construct this object by extending the basic Controller class
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -18,14 +18,14 @@ class Login extends Controller
     /**
      * Index, default action (shows the login form), when you do login/index
      */
-    function index()
+    public function index()
     {
         // create a login model to perform the getFacebookLoginUrl() method
-        $login_model = $this->loadModel('Login');
+        $loginModel = $this->loadModel('Login');
 
         // if we use Facebook: this is necessary as we need the facebook_login_url in the login form (in the view)
         if (FACEBOOK_LOGIN == true) {
-            $this->view->facebook_login_url = $login_model->getFacebookLoginUrl();
+            $this->view->facebook_login_url = $loginModel->getFacebookLoginUrl();
         }
 
         // show the view
@@ -35,15 +35,15 @@ class Login extends Controller
     /**
      * The login action, when you do login/login
      */
-    function login()
+    public function login()
     {
         // run the login() method in the login-model, put the result in $login_successful (true or false)
-        $login_model = $this->loadModel('Login');
+        $loginModel = $this->loadModel('Login');
         // perform the login method, put result (true or false) into $login_successful
-        $login_successful = $login_model->login();
+        $loginSuccessful = $loginModel->login();
 
         // check login status
-        if ($login_successful) {
+        if ($loginSuccessful) {
             // if YES, then move user to dashboard/index (btw this is a browser-redirection, not a rendered view!)
             header('location: ' . URL . 'dashboard/index');
         } else {
@@ -56,14 +56,14 @@ class Login extends Controller
      * The login action, this is where the user is directed after being checked by the Facebook server by
      * clicking the facebook-login button
      */
-    function loginWithFacebook()
+    public function loginWithFacebook()
     {
         // run the login() method in the login-model, put the result in $login_successful (true or false)
-        $login_model = $this->loadModel('Login');
-        $login_successful = $login_model->loginWithFacebook();
+        $loginModel = $this->loadModel('Login');
+        $loginSuccessful = $loginModel->loginWithFacebook();
 
         // check login status
-        if ($login_successful) {
+        if ($loginSuccessful) {
             // if YES, then move user to dashboard/index (this is a browser-redirection, not a rendered view)
             header('location: ' . URL . 'dashboard/index');
         } else {
@@ -75,10 +75,10 @@ class Login extends Controller
     /**
      * The logout action, login/logout
      */
-    function logout()
+    public function logout()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->logout();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->logout();
         // redirect user to base URL
         header('location: ' . URL);
     }
@@ -86,17 +86,17 @@ class Login extends Controller
     /**
      * Login with cookie
      */
-    function loginWithCookie()
+    public function loginWithCookie()
     {
         // run the loginWithCookie() method in the login-model, put the result in $login_successful (true or false)
-        $login_model = $this->loadModel('Login');
-        $login_successful = $login_model->loginWithCookie();
+        $loginModel = $this->loadModel('Login');
+        $loginSuccessful = $loginModel->loginWithCookie();
 
-        if ($login_successful) {
+        if ($loginSuccessful) {
             header('location: ' . URL . 'dashboard/index');
         } else {
             // delete the invalid cookie to prevent infinite login loops
-            $login_model->deleteCookie();
+            $loginModel->deleteCookie();
             // if NO, then move user to login/index (login form) (this is a browser-redirection, not a rendered view)
             header('location: ' . URL . 'login/index');
         }
@@ -105,7 +105,7 @@ class Login extends Controller
     /**
      * Show user's profile
      */
-    function showProfile()
+    public function showProfile()
     {
         // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
         Auth::handleLogin();
@@ -115,7 +115,7 @@ class Login extends Controller
     /**
      * Edit user name (show the view with the form)
      */
-    function editUsername()
+    public function editUsername()
     {
         // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
         Auth::handleLogin();
@@ -125,17 +125,17 @@ class Login extends Controller
     /**
      * Edit user name (perform the real action after form has been submitted)
      */
-    function editUsername_action()
+    public function editUsername_action()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->editUserName();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->editUserName();
         $this->view->render('login/editusername');
     }
 
     /**
      * Edit user email (show the view with the form)
      */
-    function editUserEmail()
+    public function editUserEmail()
     {
         // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
         Auth::handleLogin();
@@ -145,39 +145,39 @@ class Login extends Controller
     /**
      * Edit user email (perform the real action after form has been submitted)
      */
-    function editUserEmail_action()
+    public function editUserEmail_action()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->editUserEmail();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->editUserEmail();
         $this->view->render('login/edituseremail');
     }
 
     /**
      * Upload avatar
      */
-    function uploadAvatar()
+    public function uploadAvatar()
     {
         // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
         Auth::handleLogin();
-        $login_model = $this->loadModel('Login');
-        $this->view->avatar_file_path = $login_model->getUserAvatarFilePath();
+        $loginModel = $this->loadModel('Login');
+        $this->view->avatar_file_path = $loginModel->getUserAvatarFilePath();
         $this->view->render('login/uploadavatar');
     }
 
     /**
      *
      */
-    function uploadAvatar_action()
+    public function uploadAvatar_action()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->createAvatar();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->createAvatar();
         $this->view->render('login/uploadavatar');
     }
 
     /**
      *
      */
-    function changeAccountType()
+    public function changeAccountType()
     {
         // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
         Auth::handleLogin();
@@ -187,10 +187,10 @@ class Login extends Controller
     /**
      *
      */
-    function changeAccountType_action()
+    public function changeAccountType_action()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->changeAccountType();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->changeAccountType();
         $this->view->render('login/changeaccounttype');
     }
 
@@ -198,13 +198,13 @@ class Login extends Controller
      * Register page
      * Show the register form (with the register-with-facebook button). We need the facebook-register-URL for that.
      */
-    function register()
+    public function register()
     {
-        $login_model = $this->loadModel('Login');
+        $loginModel = $this->loadModel('Login');
 
         // if we use Facebook: this is necessary as we need the facebook_register_url in the login form (in the view)
         if (FACEBOOK_LOGIN == true) {
-            $this->view->facebook_register_url = $login_model->getFacebookRegisterUrl();
+            $this->view->facebook_register_url = $loginModel->getFacebookRegisterUrl();
         }
 
         $this->view->render('login/register');
@@ -213,12 +213,12 @@ class Login extends Controller
     /**
      * Register page action (after form submit)
      */
-    function register_action()
+    public function register_action()
     {
-        $login_model = $this->loadModel('Login');
-        $registration_successful = $login_model->registerNewUser();
+        $loginModel = $this->loadModel('Login');
+        $registrationSuccessful = $loginModel->registerNewUser();
 
-        if ($registration_successful == true) {
+        if ($registrationSuccessful == true) {
             header('location: ' . URL . 'login/index');
         } else {
             header('location: ' . URL . 'login/register');
@@ -228,14 +228,14 @@ class Login extends Controller
     /**
      * Register a user via Facebook-authentication
      */
-    function registerWithFacebook()
+    public function registerWithFacebook()
     {
-        $login_model = $this->loadModel('Login');
+        $loginModel = $this->loadModel('Login');
         // perform the register method, put result (true or false) into $registration_successful
-        $registration_successful = $login_model->registerWithFacebook();
+        $registrationSuccessful = $loginModel->registerWithFacebook();
 
         // check registration status
-        if ($registration_successful) {
+        if ($registrationSuccessful) {
             // if YES, then move user to login/index (this is a browser-redirection, not a rendered view)
             header('location: ' . URL . 'login/index');
         } else {
@@ -246,20 +246,20 @@ class Login extends Controller
 
     /**
      * Verify user after activation mail link opened
-     * @param int $user_id user's id
-     * @param string $user_activation_verification_code sser's verification token
+     * @param int $userID user's id
+     * @param string $userActivationVerificationCode sser's verification token
      */
-    function verify($user_id, $user_activation_verification_code)
+    public function verify($userID, $userActivationVerificationCode)
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->verifyNewUser($user_id, $user_activation_verification_code);
+        $loginModel = $this->loadModel('Login');
+        $loginModel->verifyNewUser($userID, $userActivationVerificationCode);
         $this->view->render('login/verify');
     }
 
     /**
      * Request password reset page
      */
-    function requestPasswordReset()
+    public function requestPasswordReset()
     {
         $this->view->render('login/requestpasswordreset');
     }
@@ -267,25 +267,25 @@ class Login extends Controller
     /**
      * Request password reset action (after form submit)
      */
-    function requestPasswordReset_action()
+    public function requestPasswordReset_action()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->requestPasswordReset();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->requestPasswordReset();
         $this->view->render('login/requestpasswordreset');
     }
 
     /**
      * Verify the verification token of that user (to show the user the password editing view or not)
-     * @param string $user_name username
-     * @param string $verification_code password reset verification token
+     * @param string $username username
+     * @param string $verificationCode password reset verification token
      */
-    function verifyPasswordReset($user_name, $verification_code)
+    public function verifyPasswordReset($username, $verificationCode)
     {
-        $login_model = $this->loadModel('Login');
-        if ($login_model->verifyPasswordReset($user_name, $verification_code)) {
+        $loginModel = $this->loadModel('Login');
+        if ($loginModel->verifyPasswordReset($username, $verificationCode)) {
             // get variables for the view
-            $this->view->user_name = $user_name;
-            $this->view->user_password_reset_hash = $verification_code;
+            $this->view->user_name = $username;
+            $this->view->user_password_reset_hash = $verificationCode;
             $this->view->render('login/changepassword');
         } else {
             header('location: ' . URL . 'login/index');
@@ -295,12 +295,12 @@ class Login extends Controller
     /**
      * Set the new password
      */
-    function setNewPassword()
+    public function setNewPassword()
     {
-        $login_model = $this->loadModel('Login');
+        $loginModel = $this->loadModel('Login');
         // try the password reset (user identified via hidden form inputs ($user_name, $verification_code)), see
         // verifyPasswordReset() for more
-        $login_model->setNewPassword();
+        $loginModel->setNewPassword();
         // regardless of result: go to index page (user will get success/error result via feedback message)
         header('location: ' . URL . 'login/index');
     }
@@ -313,9 +313,9 @@ class Login extends Controller
      * moment the end-user requests the <img .. >
      * If you don't know what this means: Don't worry, simply leave everything like it is ;)
      */
-    function showCaptcha()
+    public function showCaptcha()
     {
-        $login_model = $this->loadModel('Login');
-        $login_model->generateCaptcha();
+        $loginModel = $this->loadModel('Login');
+        $loginModel->generateCaptcha();
     }
 }

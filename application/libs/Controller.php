@@ -10,7 +10,7 @@
  */
 class Controller
 {
-    function __construct()
+    public function __construct()
     {
         Session::init();
 
@@ -32,7 +32,7 @@ class Controller
 
     /**
      * loads the model with the given name.
-     * @param $name string name of the model
+     * @param string $name name of the model
      */
     public function loadModel($name)
     {

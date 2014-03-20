@@ -9,7 +9,7 @@ class Help extends Controller
     /**
      * Construct this object by extending the basic Controller class
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -17,7 +17,7 @@ class Help extends Controller
     /**
      * This method controls what happens when you move to /help/index in your app.
      */
-    function index()
+    public function index()
     {
         $this->view->render('help/index');
     }
